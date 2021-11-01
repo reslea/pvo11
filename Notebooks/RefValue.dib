@@ -1,0 +1,140 @@
+#!markdown
+
+Передача по значению (для базовых типов и стуктур):
+
+#!csharp
+
+int someAge = 15;
+
+IncrementAge(someAge);
+Console.WriteLine(someAge);
+
+void IncrementAge(int age)
+{
+  age++;
+}
+
+#!markdown
+
+Передача по ссылке (для классов):
+
+#!csharp
+
+Person p = new Person();
+
+Console.WriteLine(p.Name);
+AddName(p);
+Console.WriteLine(p.Name);
+
+void AddName(Person person)
+{
+  person.Name = "Ivan";
+}
+
+class Person
+{
+  public string Name { get;set; }
+}
+
+#!markdown
+
+Особый случай -- тип `string`. Передается по ссылке, но при модификации создается копия
+
+#!csharp
+
+string s = "Hello ";
+
+AddToText(s);
+Console.WriteLine(s);
+
+void AddToText(string text)
+{
+  text += "World!";
+}
+
+#!markdown
+
+Передача значимых типов по ссылке:
+
+#!csharp
+
+int someAge = 15;
+
+IncrementAge(ref someAge);
+Console.WriteLine(someAge);
+
+void IncrementAge(ref int age)
+{
+  age++;
+}
+
+#!markdown
+
+Пример работы с `out` параметром. Переменная `int age` будет создана и ссылка на неё будет передана в метод, который обязан задать ей значение (иначе -- ошибка компиляции).
+
+#!csharp
+
+string printedAge = "21"; // Console.ReadLine();
+
+if(TryParseInt(printedAge, out int age) && age >= 18)
+{
+    Console.WriteLine(age);
+}
+else
+{
+    Console.WriteLine("oops, not a number or its less than 18");
+}
+
+int ParseInt(string s)
+{
+    int result = 0;
+
+    foreach (char ch in s)
+    {
+        int charNumber = (int)ch;
+
+        int currentNumber = 0;
+        if (charNumber >= 48 && charNumber < 48 + 10)
+        {
+            currentNumber = charNumber - 48;
+
+            result *= 10;
+            result += currentNumber;
+        }
+        else throw new Exception("cannot parse int");
+    }
+
+    return result;
+}
+
+bool TryParseInt(string s, out int value)
+{
+    try
+    {
+        value = ParseInt(s);
+
+        return true;
+    }
+    catch (Exception)
+    {
+        value = default;
+        return false;
+    }
+}
+
+#!markdown
+
+Пример работы со встроенным методом `int.TryParse`:
+
+#!csharp
+
+string printedAge = "43"; //Console.ReadLine();
+
+if(int.TryParse(printedAge, out int age) && age >= 18)
+{
+    Console.WriteLine(age);
+}
+else
+{
+    Console.WriteLine("oops, not a number or its less than 18");
+}
