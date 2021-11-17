@@ -18,12 +18,12 @@ public class Person
         Father = father;
     }
 
-    public void GrowUp()
+    public virtual void GrowUp()
     {
         Age++;
     }
 
-    public void GrowUp(int years)
+    public virtual void GrowUp(int years)
     {
         Age += years;
     }
@@ -33,7 +33,7 @@ public class Person
         return Name + " " + Age.ToString();
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj == null || obj.GetType() != typeof(Person))
         {
@@ -43,5 +43,24 @@ public class Person
         Person p = (Person)obj;
 
         return Age == p.Age && Name == p.Name;
+    }
+}
+
+public class Employee : Person
+{
+    public Employee(int age, string name, Person mother, Person father)
+        : base(age, name, mother, father)
+    {
+
+    }
+
+    public override void GrowUp()
+    {
+        throw new Exception();
+    }
+
+    public override void GrowUp(int years)
+    {
+        base.GrowUp(years);
     }
 }
