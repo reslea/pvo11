@@ -1,0 +1,96 @@
+#!markdown
+
+### Лямбда-функции:
+
+Лямбда функция - **анонимная функция**, которую можно определить в коде как обычную переменную.
+
+Тем не менее, компилятор, при сборке, превратит анонимную функцию в функцию класса и сгенерирует ей имя. В переменной же будет храниться ссылка на эту функцию.
+
+Для ссылок на методы в C# используется ключевое слово `delegate`.
+Делегат - описание типа ссылки на метод, например:
+
+#!csharp
+
+delegate int PerformCalculation(int x, int y);
+
+#!csharp
+
+int Add (int x, int y) { return x + y; }
+int Substract (int x, int y) { return x - y; }
+int Multiply (int x, int y) { return x * y; }
+int Divide (int x, int y) { return x / y; }
+
+// ссылаемся на операцию добавления
+PerformCalculation calculation = Add;
+Console.WriteLine($"Add: {calculation(1,2)}");
+// меняем ссылку на умножение:
+calculation = Multiply;
+Console.WriteLine($"Multiply: {calculation(1,2)}");
+
+#!markdown
+
+В стандартной библиотеке C# присутствуют обобщенные делегаты `Action`, которые определяют любые методы, которые возвращают `void` и принимают от 0 до 16 параметров.
+
+Делегат это по сути тип переменной, которая ссылается на функцию, например:
+
+#!csharp
+
+void PrintHello() { Console.WriteLine("Hello"); }
+void PrintMessage(string msg) { Console.WriteLine(msg); }
+
+Action printHelloRef = PrintHello;
+printHelloRef();
+
+// string здесь это тип первого принимаемого параметра в методе:
+Action<string> printMessageRef = PrintMessage;
+printMessageRef("wow");
+
+// и т.д. для Action<T1, T2> вплоть до Action<T1, T2, ..., T16>
+
+#!markdown
+
+Для методов, которые возвращают значение, а не `void` существует обобщенный делегат `Func`, определяющий любые методы которые возвращают объекты и принимают от 0 до 16 параметров, например:
+
+#!csharp
+
+int GetFour() { return 4; }
+int ParseInt(string number) { return int.Parse(number); }
+
+Func<int> getFourRef = GetFour;
+Console.WriteLine($"getFourRef: {getFourRef()}");
+
+// последний тип в Func -- всегда возвращаемое значение, перед этим -- типы принимаемых параметров
+Func<string, int> parserRef = ParseInt;
+Console.WriteLine($"parserRef: {parserRef("321")}");
+
+#!markdown
+
+Зная больше про делегаты и про `Func`\\`Action` мы можем определить несколько "этапов эволюции" обычной функции в лямбду:
+
+#!csharp
+
+// обычная функция:
+int Parser(string number) 
+{ 
+    return int.Parse(number);
+}
+// мы можем опустить название и тип результата, заменив их на delegate
+Func<string, int> printer1 = delegate (string number) 
+{ 
+    return int.Parse(number);
+};
+
+// если тело функции состоит из одного выражения return
+// delegate, фигурные скобки и return можно опустить
+// заменив их на "стрелку" =>
+Func<string, int> printer2 = (string number) => int.Parse(number);
+
+// поскольку тип принимаемого параметра (string) понятен из контекста (Func<string..)
+// его можно опустить, а если этот параметр один -- можно опустить и скобки
+Func<string, int> printer3 = number => int.Parse(number);
+
+// начиная с .NET 6 и C# 10 можно будет использовать var, не указывая тип делегата
+// но тогда типы всех входящих параметров должны быть указаны явно
+// (чтоб компилятор их не "угадывал")
+
+// var printer4 = (int number) => int.Parse(number);

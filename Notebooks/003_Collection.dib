@@ -1,0 +1,64 @@
+#!markdown
+
+### Коллекции:
+* `IEnumerable<T>`:
+    - Коллекция поддерживает возможность "прохода"
+* `ICollections<T>`
+    - Коллекция поддерживает методы добавления/изменения/удаления а также поиска
+* `IList<T>`
+    - Коллекция поддерживает индекс и индексные методы добавления/изменения/удаления а также поиска
+
+#!csharp
+
+// Реализация IEnumerable позволяет пользоваться foreach:
+foreach(int number in numbers)
+{
+    Console.Write($"{number} ");
+}
+
+Console.WriteLine();
+
+// Также это выражение эквивалентно:
+IEnumerator<int> enumerator = numbers.GetEnumerator();
+while(enumerator.MoveNext())
+{
+    int number = enumerator.Current;    
+    Console.Write($"{number} ");
+}
+
+#!csharp
+
+// Реализация IEnumerable также позволяет пользоваться инициализаторами коллекции:
+IEnumerable<int> numbers = new int[] { 1, 2, 3 };
+IEnumerable<int> otherNumbers = new List<int> { 1, 2, 3 };
+
+#!markdown
+
+Отдельного внимания служат генераторы коллекций, которые вместе с `foreach` позволяют "дёшево" возвращать большие объемы данных и обрабатывать их "на лету".
+
+#!csharp
+
+// генератор:
+IEnumerable<int> GetFibonacci()
+{
+    int a = 0;
+    int b = 1;
+    int c = 0;
+
+    while(true)
+    {
+        c = a + b;
+        yield return c;
+        a = b;
+        b = c;
+    }
+}
+
+#!csharp
+
+// использование:
+foreach(int fibN in GetFibonacci())
+{
+    if(fibN == 9) break;
+    Console.Write($"{fibN} ");
+}
