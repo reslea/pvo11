@@ -1,96 +1,52 @@
 #!markdown
 
-### Лямбда-функции:
+### Использование лямбда-функций
 
-Лямбда функция - **анонимная функция**, которую можно определить в коде как обычную переменную.
+Лямбда-функции используют в методах, для того, чтоб сделать их максимально гибкими.
 
-Тем не менее, компилятор, при сборке, превратит анонимную функцию в функцию класса и сгенерирует ей имя. В переменной же будет храниться ссылка на эту функцию.
+Например мы можем написать универсальный метод для фильтрации коллекции.
 
-Для ссылок на методы в C# используется ключевое слово `delegate`.
-Делегат - описание типа ссылки на метод, например:
-
-#!csharp
-
-delegate int PerformCalculation(int x, int y);
+Если элементы коллекции типа `T`, то функция-фильтр, приняв значение этого типа должна определить удовлетворяет объект требованиям или нет, например:
 
 #!csharp
 
-int Add (int x, int y) { return x + y; }
-int Substract (int x, int y) { return x - y; }
-int Multiply (int x, int y) { return x * y; }
-int Divide (int x, int y) { return x / y; }
-
-// ссылаемся на операцию добавления
-PerformCalculation calculation = Add;
-Console.WriteLine($"Add: {calculation(1,2)}");
-// меняем ссылку на умножение:
-calculation = Multiply;
-Console.WriteLine($"Multiply: {calculation(1,2)}");
-
-#!markdown
-
-В стандартной библиотеке C# присутствуют обобщенные делегаты `Action`, которые определяют любые методы, которые возвращают `void` и принимают от 0 до 16 параметров.
-
-Делегат это по сути тип переменной, которая ссылается на функцию, например:
-
-#!csharp
-
-void PrintHello() { Console.WriteLine("Hello"); }
-void PrintMessage(string msg) { Console.WriteLine(msg); }
-
-Action printHelloRef = PrintHello;
-printHelloRef();
-
-// string здесь это тип первого принимаемого параметра в методе:
-Action<string> printMessageRef = PrintMessage;
-printMessageRef("wow");
-
-// и т.д. для Action<T1, T2> вплоть до Action<T1, T2, ..., T16>
-
-#!markdown
-
-Для методов, которые возвращают значение, а не `void` существует обобщенный делегат `Func`, определяющий любые методы которые возвращают объекты и принимают от 0 до 16 параметров, например:
-
-#!csharp
-
-int GetFour() { return 4; }
-int ParseInt(string number) { return int.Parse(number); }
-
-Func<int> getFourRef = GetFour;
-Console.WriteLine($"getFourRef: {getFourRef()}");
-
-// последний тип в Func -- всегда возвращаемое значение, перед этим -- типы принимаемых параметров
-Func<string, int> parserRef = ParseInt;
-Console.WriteLine($"parserRef: {parserRef("321")}");
-
-#!markdown
-
-Зная больше про делегаты и про `Func`\\`Action` мы можем определить несколько "этапов эволюции" обычной функции в лямбду:
-
-#!csharp
-
-// обычная функция:
-int Parser(string number) 
-{ 
-    return int.Parse(number);
+IEnumerable<T> Filter<T>(IEnumerable<T> collection, Func<T, bool> filterFunc)
+{
+    foreach(T item in collection)
+    {
+        if(filterFunc(item))
+            yield return item;
+    }
 }
-// мы можем опустить название и тип результата, заменив их на delegate
-Func<string, int> printer1 = delegate (string number) 
-{ 
-    return int.Parse(number);
+
+#!markdown
+
+Имея в арсенале один такой метод мы сможем фильтровать любые колелкции по любому принципу, ведь все они реализовуют интерфейс `IEnumerable<T>`:
+
+#!csharp
+
+int[] intArr = new int[] { 1,2,3,4 };
+var even = Filter(intArr, x => x % 2 == 0);
+
+IEnumerable<string> stringEnumerable = new List<string> { "x", "xx", "xxx" };
+var longStrings = Filter(stringEnumerable, s => s.Length >= 2);
+
+var heroes = new List<Hero> {
+    new Hero { FirstName = "Peter", LastName = "Parker", Age = 16, IsAvenger = true },
+    new Hero { FirstName = "Molly", LastName = "Jane", Age = 16, IsAvenger = false },
+    new Hero { FirstName = "Tony", LastName = "Stark", Age = 48, IsAvenger = true },
+    new Hero { FirstName = "Steve", LastName = "Rogers", Age = 100, IsAvenger = true },
+    new Hero { FirstName = "Steven", LastName = "Strange", Age = 42, IsAvenger = false },
 };
 
-// если тело функции состоит из одного выражения return
-// delegate, фигурные скобки и return можно опустить
-// заменив их на "стрелку" =>
-Func<string, int> printer2 = (string number) => int.Parse(number);
+var avengers = Filter(heroes, h => h.IsAvenger);
+var adults = Filter(heroes, h => h.Age >= 21);
+var nameS = Filter(heroes, h => h.FirstName.StartsWith('S'));
 
-// поскольку тип принимаемого параметра (string) понятен из контекста (Func<string..)
-// его можно опустить, а если этот параметр один -- можно опустить и скобки
-Func<string, int> printer3 = number => int.Parse(number);
-
-// начиная с .NET 6 и C# 10 можно будет использовать var, не указывая тип делегата
-// но тогда типы всех входящих параметров должны быть указаны явно
-// (чтоб компилятор их не "угадывал")
-
-// var printer4 = (int number) => int.Parse(number);
+class Hero
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public int Age { get; set; }
+    public bool IsAvenger { get;set; }
+}
