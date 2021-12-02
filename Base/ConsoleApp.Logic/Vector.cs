@@ -193,6 +193,7 @@ namespace ConsoleApp.Logic
                     return false;
                 }
 
+                //Console.WriteLine($"move next() called, current: {Current}");
                 Current = _vector.items[++position];
 
                 return true;
@@ -205,7 +206,7 @@ namespace ConsoleApp.Logic
 
             public void Dispose()
             {
-                throw new NotImplementedException();
+
             }
         }
     }

@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nullables", "Nullables\Null
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Files", "Files\Files.csproj", "{C971319C-ED72-449B-9D90-656CC625095F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAwait", "AsyncAwait\AsyncAwait.csproj", "{48B1ED8B-2673-4ACA-8F96-0DC1F6A52897}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncAwait", "AsyncAwait\AsyncAwait.csproj", "{48B1ED8B-2673-4ACA-8F96-0DC1F6A52897}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqExpressions", "LinqExpressions\LinqExpressions.csproj", "{0E9700ED-7945-4968-9994-A0A051494BE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{48B1ED8B-2673-4ACA-8F96-0DC1F6A52897}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48B1ED8B-2673-4ACA-8F96-0DC1F6A52897}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48B1ED8B-2673-4ACA-8F96-0DC1F6A52897}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E9700ED-7945-4968-9994-A0A051494BE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E9700ED-7945-4968-9994-A0A051494BE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E9700ED-7945-4968-9994-A0A051494BE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E9700ED-7945-4968-9994-A0A051494BE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{92706E1C-3984-4415-9C33-EA182E9EBC9C} = {AFF5F17F-877A-499B-B9C4-F2E8B654E721}
 		{C971319C-ED72-449B-9D90-656CC625095F} = {AFF5F17F-877A-499B-B9C4-F2E8B654E721}
 		{48B1ED8B-2673-4ACA-8F96-0DC1F6A52897} = {AFF5F17F-877A-499B-B9C4-F2E8B654E721}
+		{0E9700ED-7945-4968-9994-A0A051494BE2} = {AFF5F17F-877A-499B-B9C4-F2E8B654E721}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FAD1D98-5044-4B76-9547-1E18479C7200}
