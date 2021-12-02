@@ -1,30 +1,58 @@
 ﻿//while (true)
 //{
-//    Task task = new Task(PrintTheadId);
-//    task.Start();
+//  Task task = new Task(PrintTheadId);
+//  task.Start();
 //}
 
-for (int i = 0; i < 100; i++)
+Task task1 = new Task(() =>
 {
-    Task startRequest = new Task(() =>
-    {
-        Console.WriteLine($"Parsing JSON... request#{i}");
-        Thread.Sleep(500);
-    });
-    startRequest.Start();
+  Console.WriteLine($"Task 2..");
+  //throw new ArgumentException();
+  Thread.Sleep(500);
+});
+Task task2 = new Task(() =>
+{
+  Console.WriteLine($"Task 2");
+  Thread.Sleep(500);
+});
+Task<int> task3 = new Task<int>(() =>
+{
+  Console.WriteLine($"Task 3");
+  Thread.Sleep(500);
+  return 100;
+});
 
-    startRequest
-    .ContinueWith((_) =>
-    {
-        Console.WriteLine($"Creating search creteria... request#{i}");
-        Thread.Sleep(500);
-    })
-    .ContinueWith((_) =>
-    {
-        Console.WriteLine($"Requesting SQL server... request#{i}");
-        Thread.Sleep(500);
-    });
-}
+await task1;
+
+Console.WriteLine("all tasks are completed");
+
+//Task startRequest = new Task(() =>
+//{
+//  throw new NotImplementedException();
+//  Thread.Sleep(500);
+//});
+
+//startRequest.Start();
+
+//startRequest
+//  .ContinueWith((task) =>
+//  {
+//    if (task.IsCompletedSuccessfully)
+//    {
+//      Console.WriteLine($"Task 2");
+//      Thread.Sleep(500);
+//    }
+//  })
+//  .ContinueWith((_) =>
+//  {
+//    if (_.IsCompletedSuccessfully)
+//    {
+//      Console.WriteLine($"Task 2");
+//      Thread.Sleep(500);
+//    }
+//  });
+
+Console.ReadLine();
 
 
 ThreadPool.SetMinThreads(1, 10);
