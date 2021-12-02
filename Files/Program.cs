@@ -15,7 +15,7 @@ using (FileStream fs = new FileStream(filePath, FileMode.Open))
     for (int j = 0; j < 3; j++)
     {
         fs.Seek(bufferSize * j, SeekOrigin.Begin);
-        fs.Read(buffer);
+        await fs.ReadAsync(buffer);
 
         for (int i = 0; i < buffer.Length; i++)
         {
