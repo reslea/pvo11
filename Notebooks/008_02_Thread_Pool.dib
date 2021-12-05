@@ -1,0 +1,42 @@
+#!markdown
+
+## Пул потоков
+
+#!markdown
+
+Поскольку создавать новые потоки для выполнения небольших задач нерационально (из-за их дороговизны), в C# есть встроенный механизм "пула потоков".
+
+**Пул потоков** - набор потоков, который получает задачи в очередь. Эти задачи распределяются между существующими потоками.
+
+Если задач много - пул может создать новый поток для повышения своего ресурса.
+
+Если задач мало - пул может удалить неиспользуемые потоки.
+
+Пул принимает задачи похожим на поток образом, но метод должен принимать параметр типа `object` или `<T>`
+
+*Использованиие пула потоков позволяет делегировать ему управление фоновыми потоками и распределению задач между ними.*
+
+#!csharp
+
+using System.Threading;
+
+// object-вариант
+ThreadPool.QueueUserWorkItem(PrintMessage);
+// generic-вариант
+ThreadPool.QueueUserWorkItem<string>(PrintMessage, "message", false);
+
+Console.WriteLine("this works on the main thread");
+
+void PrintMessage(object o) 
+{ 
+    int threadId = Thread.CurrentThread.ManagedThreadId;
+    Console.WriteLine($"This method runs on thread #{threadId}");
+}
+void PrintMessage(string message)
+{    
+    int threadId = Thread.CurrentThread.ManagedThreadId;
+    Console.Write($"This method runs on thread #{threadId}");
+    
+    if (message != null)
+        Console.WriteLine($" {message}");
+}
