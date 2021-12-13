@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Serialization.Converters;
+using Serialization.Entities;
 using Xunit;
 
 namespace Serialization
@@ -47,9 +49,71 @@ namespace Serialization
                 Name = "Alex",
                 Age = 33
             };
+
             var expectedResult = JsonConvert.SerializeObject(person);
 
             var actualResult = JsonReflectionConvert.Serialize(person);
+
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Fact]
+        public void Serialize_Type_Without_Setter()
+        {
+            var reader = new Reader
+            {
+                Name = "Inna",
+                DateOfBirth = new DateTime(2000, 1, 1)
+            };
+
+            var expectedResult = JsonConvert.SerializeObject(reader);
+
+            var actualResult = JsonReflectionConvert.Serialize(reader);
+
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Fact]
+        public void Serialize_Type_With_Nested_Object()
+        {
+            var reader = new Reader
+            {
+                Name = "Inna",
+                DateOfBirth = new DateTime(2000, 1, 1),
+                ReadableBook = new Book
+                {
+                    Title = "CLR via C#",
+                    Description = "Very cool book about C#"
+                },
+            };
+
+            var expectedResult = JsonConvert.SerializeObject(reader);
+
+            var actualResult = JsonReflectionConvert.Serialize(reader);
+
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Fact]
+        public void Serialize_Type_With_Nested_List()
+        {
+            var reader = new Reader
+            {
+                Name = "Inna",
+                DateOfBirth = new DateTime(2000, 1, 1),
+                FafouriteBooks = new List<Book>
+                {
+                    new Book
+                    {
+                        Title = "CLR via C#",
+                        Description = "Very cool book about C#"
+                    }
+                },
+            };
+
+            var expectedResult = JsonConvert.SerializeObject(reader);
+
+            var actualResult = JsonReflectionConvert.Serialize(reader);
 
             Assert.Equal(expectedResult, actualResult);
         }

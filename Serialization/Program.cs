@@ -1,6 +1,6 @@
-﻿using Serialization;
+﻿using Serialization.Entities;
+using System.Reflection;
 
-var spideyJson = "{\"FirstName\":\"Peter\",\"LastName\":\"Parker\",\"Age\":16,\"IsAvenger\":true}";
 var spidey = new Hero
 {
   FirstName = "Peter",
@@ -8,5 +8,10 @@ var spidey = new Hero
   Age = 16,
   IsAvenger = true
 };
+
+Type type = spidey.GetType();
+MethodInfo[] methods = type.GetMethods();
+
+MethodInfo firstNameGetter = methods[0];
 
 Console.ReadLine();

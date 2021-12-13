@@ -1,10 +1,12 @@
-﻿namespace Serialization;
+﻿using Serialization.Entities;
+
+namespace Serialization.Converters;
 
 public class JsonManualConvert
 {
     public static string Serialize(Hero source)
     {
-        var result = 
+        var result =
             "{" +
             SerializeProperty(nameof(Hero.FirstName), source.FirstName) +
             SerializeProperty(nameof(Hero.LastName), source.LastName) +
