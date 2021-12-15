@@ -2,7 +2,7 @@
 
 namespace Serialization.Converters;
 
-public class JsonManualConvert
+public partial class JsonManualConvert_Serialize
 {
     public static string Serialize(Hero source)
     {

@@ -19,7 +19,7 @@ namespace Serialization
             };
             var expectedResult = "{\"FirstName\":\"Peter\",\"LastName\":\"Parker\",\"Age\":16,\"IsAvenger\":true}";
 
-            string actualResult = JsonManualConvert.Serialize(source);
+            string actualResult = JsonManualConvert_Serialize.Serialize(source);
 
             Assert.Equal(expectedResult, actualResult);
         }
