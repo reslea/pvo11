@@ -8,7 +8,9 @@ if(!fi.Exists)
 
 using (FileStream fs = new FileStream(filePath, FileMode.Open))
 {
-    int bufferSize = 3;
+    // 
+
+    int bufferSize = 4096;
 
     byte[] buffer = new byte[bufferSize];
 

@@ -21,10 +21,10 @@ public interface IHappyTicketChecker
     bool IsHappy(string ticketNumber);
 }
 
-public class HappyTicketChecker : IHappyTicketChecker
-{
-    public bool IsHappy(string ticketNumber)
-    {
-        throw new NotImplementedException();
-    }
-}
+//public class HappyTicketChecker : IHappyTicketChecker
+//{
+//    public bool IsHappy(string ticketNumber)
+//    {
+//        throw new NotImplementedException();
+//    }
+//}

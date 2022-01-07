@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinqExpressions", "LinqExpr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serialization", "Serialization\Serialization.csproj", "{AAA73727-88A1-4BB5-B09F-FAA0A4B92447}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{603BEAD3-1E43-4962-BCC1-7393F9C0DECE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces", "Interfaces\Interfaces.csproj", "{603BEAD3-1E43-4962-BCC1-7393F9C0DECE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileReader", "FileReader\FileReader.csproj", "{C22D7366-C607-4084-A0C9-5B5CB42BD987}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{603BEAD3-1E43-4962-BCC1-7393F9C0DECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{603BEAD3-1E43-4962-BCC1-7393F9C0DECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{603BEAD3-1E43-4962-BCC1-7393F9C0DECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C22D7366-C607-4084-A0C9-5B5CB42BD987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22D7366-C607-4084-A0C9-5B5CB42BD987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22D7366-C607-4084-A0C9-5B5CB42BD987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22D7366-C607-4084-A0C9-5B5CB42BD987}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +99,7 @@ Global
 		{0E9700ED-7945-4968-9994-A0A051494BE2} = {AFF5F17F-877A-499B-B9C4-F2E8B654E721}
 		{AAA73727-88A1-4BB5-B09F-FAA0A4B92447} = {AFF5F17F-877A-499B-B9C4-F2E8B654E721}
 		{603BEAD3-1E43-4962-BCC1-7393F9C0DECE} = {AFF5F17F-877A-499B-B9C4-F2E8B654E721}
+		{C22D7366-C607-4084-A0C9-5B5CB42BD987} = {AFF5F17F-877A-499B-B9C4-F2E8B654E721}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FAD1D98-5044-4B76-9547-1E18479C7200}
