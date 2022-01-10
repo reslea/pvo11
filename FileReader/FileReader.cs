@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FileReader
 {
-    public class FileReader
+    public class FileReader : IReader
     {
         private string _fileName;
 
@@ -14,7 +14,7 @@ namespace FileReader
         {
             _fileName = fileName;
         }
-        public IEnumerable<string> GetFileLines()
+        public IEnumerable<string> GetJsonLines()
         {
             using StreamReader sr = new StreamReader(_fileName);
 

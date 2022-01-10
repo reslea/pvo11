@@ -8,16 +8,25 @@ namespace FileReader
 {
     public class JsonReader
     {
-        private FileReader fileReader;
+        private IReader fileReader;
 
-        public JsonReader(FileReader fileReader)
+        public JsonReader(IReader fileReader)
         {
             this.fileReader = fileReader;
         }
 
         public IEnumerable<Hero> GetHeroes()
         {
-            IEnumerable<string> jsonStrings = fileReader.GetFileLines();
+            IEnumerable<string> jsonStrings;
+            try
+            {
+                jsonStrings = fileReader.GetJsonLines();
+            }
+            catch
+            {
+                yield break;
+            }
+            
             foreach (var heroJson in jsonStrings)
             {
                 Hero hero = (Hero)JsonManualConvert_Serialize
