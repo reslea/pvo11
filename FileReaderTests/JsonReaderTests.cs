@@ -27,7 +27,7 @@ namespace FileReaderTests
         }
     }
 
-    public class FakeFileReader : IReader
+    internal class FakeFileReader : IReader
     {
         public IEnumerable<string> GetJsonLines()
         {
@@ -35,7 +35,7 @@ namespace FileReaderTests
         }
     }
 
-    public class ExceptionFileReader : IReader
+    internal class ExceptionFileReader : IReader
     {
         public IEnumerable<string> GetJsonLines()
         {

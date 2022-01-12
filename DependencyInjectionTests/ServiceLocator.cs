@@ -22,6 +22,25 @@ namespace DependencyInjectionTests
             });
         }
 
+        internal void Register<TAbstraction, TImplementation>()
+            where TImplementation : TAbstraction
+        {
+            registeredServices.Add(new ServiceDescriptor
+            {
+                Type = typeof(TAbstraction),
+                ImplementationType = typeof(TImplementation)
+            });
+        }
+
+        internal void Register<T>(Func<object> implementationResolver)
+        {
+            registeredServices.Add(new ServiceDescriptor
+            {
+                Type = typeof(T),
+                Resolver = implementationResolver,
+            });
+        }
+
         public void Register<T>()
         {
             registeredServices.Add(new ServiceDescriptor
@@ -35,14 +54,30 @@ namespace DependencyInjectionTests
             return (T)GetService(typeof(T));
         }
 
-        private object GetService(Type type)
+        private object GetService(Type serviceType)
         {
             ServiceDescriptor descriptor = registeredServices
-                .First(s => s.Type == type);
+                .First(s => s.Type == serviceType);
 
             if (descriptor.Implementation != null)
             {
                 return descriptor.Implementation;
+            }
+
+            if (descriptor.Resolver != null)
+            {
+                return descriptor.Resolver();
+            }
+
+            var type = descriptor.ImplementationType != null
+                ? descriptor.ImplementationType
+                : descriptor.Type;
+
+            bool cannotCreateInstance = type.IsAbstract || type.IsInterface;
+
+            if (cannotCreateInstance)
+            {
+                throw new InvalidOperationException("Cannot instantiate interface or abstract class");
             }
 
             var constructor = type.GetConstructors()[0];

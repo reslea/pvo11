@@ -20,10 +20,22 @@ namespace DependencyInjectionTests
         public void DependandObjectWorks()
         {
             var locator = new ServiceLocator();
-            locator.Register<IReader>(new FileReader.FileReader("input.txt"));
+            locator.Register<IReader>(() => new FileReader.FileReader("input.txt"));
             locator.Register<JsonReader>();
 
             JsonReader reader = locator.GetService<JsonReader>();
+
+            Assert.NotNull(reader);
+        }
+
+        [Fact]
+        public void ImplementationTypeWorks()
+        {
+            var locator = new ServiceLocator();
+            locator.Register<IReader>(() => new FileReader.FileReader("input.txt"));
+            locator.Register<IJsonReader, JsonReader>();
+
+            IJsonReader reader = locator.GetService<IJsonReader>();
 
             Assert.NotNull(reader);
         }

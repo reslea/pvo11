@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FileReader
 {
-    public class JsonReader
+    public class JsonReader : IJsonReader
     {
         private IReader fileReader;
 
@@ -26,7 +26,7 @@ namespace FileReader
             {
                 yield break;
             }
-            
+
             foreach (var heroJson in jsonStrings)
             {
                 Hero hero = (Hero)JsonManualConvert_Serialize
