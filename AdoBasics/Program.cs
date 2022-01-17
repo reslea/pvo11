@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using AdoBasics;
+using System.Data.SqlClient;
 
 var server = @"(localdb)\MSSQLLocalDB";
 var database = "People";
@@ -8,27 +9,40 @@ var connectionString = $"Server={server};Database={database};Trusted_Connection=
 using (var connection = new SqlConnection(connectionString))
 {
     connection.Open();
+    IUsersRepository usersRepo = new UsersRepository(connection);
 
+    GetUsers(usersRepo);
+    DeleteUser(usersRepo);
+    GetUsers(usersRepo);
+}
+
+void InsertNewUser(IUsersRepository usersRepo)
+{
+    Console.WriteLine("enter a name for new user:");
     var name = Console.ReadLine();
     var age = 20;
 
-    SqlCommand command = InsertUser(connection, name, age);
-
-    Console.WriteLine(command.CommandText);
-
-    var affectedRows = command.ExecuteNonQuery();
-
-    Console.WriteLine($"affected rows: {affectedRows}");
+    usersRepo.InsertUser(new User(name, age));
 }
 
-SqlCommand InsertUser(SqlConnection connection, string name, int age)
+void GetUsers(IUsersRepository usersRepo)
 {
-    SqlCommand command = connection.CreateCommand();
+    var users = usersRepo.GetUsers();
 
-    command.CommandText =
-        $"INSERT INTO Users (Name, Age) VALUES (@name, @age)";
-    command.Parameters.AddWithValue("name", name);
-    command.Parameters.AddWithValue("age", age);
+    foreach (var user in users)
+    {
+        Console.WriteLine($"{user.Id}:\t{user.Name}\t{user.Age}");
+    }
+}
 
-    return command;
+void UpdateUser(IUsersRepository usersRepo)
+{
+    var user = new User(1002, "Andy", 10);
+
+    usersRepo.UpdateUser(user);
+}
+
+void DeleteUser(IUsersRepository usersRepo)
+{
+    usersRepo.DeleteUser(1002);
 }
