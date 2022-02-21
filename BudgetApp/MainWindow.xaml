@@ -1,0 +1,42 @@
+﻿<Window x:Class="BudgetApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BudgetApp"
+        mc:Ignorable="d"
+        Title="MyBudget" Height="450" Width="800">
+    <Grid TextBlock.FontSize="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBox
+            Name="BudgetAmountTextBox" 
+            VerticalAlignment="Stretch" 
+            PreviewTextInput="BudgetAmountTextBox_ValidateOnlyNumbers" />
+        <TextBox 
+            Name="BudgetDescriptionTextBox" 
+            VerticalAlignment="Stretch"
+            Grid.Column="1"
+        />
+        <TextBlock Text="Итого:" Grid.Column="2" />
+        <TextBlock Name="TotalBalanceInfo" Text="" Grid.Column="3" />
+        <Button Content="WOW!" Name="Add" Grid.Column="4" Click="Add_Click" />
+        <DataGrid 
+            Name="BudgetGrid" 
+            Grid.Row="1" 
+            Grid.ColumnSpan="5" 
+            Margin="0, 10, 0, 0" 
+            BorderThickness="3" 
+        />
+    </Grid>
+</Window>
