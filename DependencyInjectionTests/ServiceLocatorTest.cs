@@ -39,5 +39,15 @@ namespace DependencyInjectionTests
 
             Assert.NotNull(reader);
         }
+
+        //[Fact]
+        //public void BudgetRepoFormInjector()
+        //{
+        //    var locator = new ServiceLocator();
+        //    locator.Register<IBudgetRepository, BudgetRepository>();
+        //    locator.Register<MyForm>();
+
+        //    locator.GetService<MyForm>();
+        //}
     }
 }

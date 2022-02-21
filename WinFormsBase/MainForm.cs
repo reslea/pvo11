@@ -1,25 +1,31 @@
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace WinFormsBase
 {
     public partial class MainForm : Form
     {
+        private Action onClickAction;
+
         public MainForm()
         {
             InitializeComponent();
 
-            DownloadData();
+            DownloadDataAsync();
         }
 
-        private void DownloadData()
+        private async Task DownloadDataAsync()
         {
             var server = @"(localdb)\MSSQLLocalDB";
             var database = "People";
 
             var connectionString = $"Server={server};Database={database};Trusted_Connection=True;";
             SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
+
+            await Task.Delay(1000);
+            
+            await connection.OpenAsync();
 
             var command = connection.CreateCommand();
             command.CommandText = "SELECT * FROM Users";
@@ -28,7 +34,8 @@ namespace WinFormsBase
             var usersTable = new DataTable();
 
             bool isFirstTime = true;
-            while (reader.Read())
+            
+            while (await reader.ReadAsync())
             {
                 if (isFirstTime)
                 {
@@ -50,8 +57,14 @@ namespace WinFormsBase
 
                 usersTable.Rows.Add(row);
             }
-
+            
+            await Task.Delay(1000);
             UsersGridView.DataSource = usersTable;
+        }
+
+        private async void ClickMeBtn_Click(object? sender, EventArgs e)
+        {
+
         }
     }
 }
