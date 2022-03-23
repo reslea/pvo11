@@ -8,17 +8,6 @@ namespace BestOil
             new CafeMenuItemInfo("hamburger", 30, 0),
             new CafeMenuItemInfo("coca cola", 15, 0),
             new CafeMenuItemInfo("fries", 18, 0),
-            new CafeMenuItemInfo("fries", 18, 0),
-            new CafeMenuItemInfo("fries", 18, 0),
-            new CafeMenuItemInfo("fries", 18, 0),
-            new CafeMenuItemInfo("fries", 18, 0),
-            new CafeMenuItemInfo("fries", 18, 0),
-            new CafeMenuItemInfo("fries", 18, 0),
-            new CafeMenuItemInfo("fries", 18, 0),
-            new CafeMenuItemInfo("fries", 18, 0),
-            new CafeMenuItemInfo("fries", 18, 0),
-            new CafeMenuItemInfo("fries", 18, 0),
-            new CafeMenuItemInfo("fries", 18, 0),
         };
 
         public MainForm()

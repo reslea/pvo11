@@ -1,8 +1,7 @@
-﻿using BudgetApp;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 
-namespace MyBudget
+namespace BudgetApp.Data
 {
     public class BudgetRepository : IBudgetRepository
     {
@@ -26,20 +25,22 @@ namespace MyBudget
             command.ExecuteNonQuery();
         }
 
-        public List<BudgetInfo> Get()
+        public List<BudgetInfo> Get(SortType sortType)
         {
             List<BudgetInfo> result = new();
 
             var command = _connection.CreateCommand();
-            command.CommandText = "SELECT * FROM BudgetItems";
+            command.CommandText = "SELECT * FROM BudgetItems " +
+                (sortType == SortType.Descending ? "ORDER BY Id DESC" : "");
             using var reader = command.ExecuteReader();
 
-            while(reader.Read())
+            while (reader.Read())
             {
+                var id = reader.GetFieldValue<int>(0);
                 var amount = reader.GetFieldValue<decimal>(1);
                 var description = reader.GetFieldValue<string>(2);
 
-                result.Add(new BudgetInfo(amount, description));
+                result.Add(new BudgetInfo(id, amount, description));
             }
 
             return result;

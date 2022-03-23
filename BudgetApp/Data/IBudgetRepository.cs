@@ -1,13 +1,12 @@
-﻿using BudgetApp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace MyBudget
+namespace BudgetApp.Data
 {
     public interface IBudgetRepository : IDisposable
     {
         void Add(BudgetInfo budgetItem);
 
-        List<BudgetInfo> Get();
+        List<BudgetInfo> Get(SortType sortType = SortType.Descending);
     }
 }

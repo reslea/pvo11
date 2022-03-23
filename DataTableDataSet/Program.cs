@@ -73,35 +73,35 @@ using (var connection = new SqlConnection(connectionString))
     movieTable.Rows.Add(movie1);
 
 
-    //connection.Open();
+    //connection.open();
 
-    //var command = connection.CreateCommand();
-    //command.CommandText = "SELECT * FROM Users";
-    //using var reader = command.ExecuteReader();
+    //var command = connection.createcommand();
+    //command.commandtext = "select * from users";
+    //using var reader = command.executereader();
 
 
-    //bool isFirstTime = true;
-    //while (reader.Read())
+    //bool isfirsttime = true;
+    //while (reader.read())
     //{
-    //    if (isFirstTime)
+    //    if (isfirsttime)
     //    {
-    //        for (int i = 0; i < reader.FieldCount; i++)
+    //        for (int i = 0; i < reader.fieldcount; i++)
     //        {
-    //            string columnName = reader.GetName(i);
-    //            Type columnType = reader.GetFieldType(i);
-    //            usersTable.Columns.Add(columnName, columnType);
+    //            string columnname = reader.getname(i);
+    //            type columntype = reader.getfieldtype(i);
+    //            userstable.columns.add(columnname, columntype);
     //        }
-    //        isFirstTime = false;
+    //        isfirsttime = false;
     //    }
 
-    //    DataRow row = usersTable.NewRow();
+    //    datarow row = userstable.newrow();
 
-    //    for (int i = 0; i < reader.FieldCount; i++)
+    //    for (int i = 0; i < reader.fieldcount; i++)
     //    {
-    //        row.SetField(i, reader.GetValue(i));
+    //        row.setfield(i, reader.getvalue(i));
     //    }
 
-    //    usersTable.Rows.Add(row);
+    //    userstable.rows.add(row);
     //}
 
     foreach (DataRow rowData in movieTable.Rows)

@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using MyBudget;
+﻿using BudgetApp.Data;
+using BudgetApp.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,24 +29,31 @@ namespace BudgetApp
     public partial class MainWindow : Window
     {
         private static readonly Regex numbersRegex = new("[^0-9-]+", RegexOptions.Compiled);
-        private readonly IBudgetRepository _budgetRepository;
-        private decimal _totalBalance;
-        private ObservableCollection<BudgetInfo> budgetInfos = new();
+        private readonly IBudgetService _budgetService;
         
         public MainWindow()
         {
             IServiceProvider serviceProvider = SetupDependencyInjection();
-
-            _budgetRepository = serviceProvider.GetService<IBudgetRepository>();
-
+            _budgetService = serviceProvider.GetService<IBudgetService>();
+            InitializeSortType();
             InitializeComponent();
             InitializeGrid();
             InitializeBudgetData();
+
+            Cities.Children.Add(new Button { Width = 70, Height = 20, Margin = new Thickness(10) });
+            Cities.Children.Add(new Button { Width = 70, Height = 20, Margin = new Thickness(10) });
+            Cities.Children.Add(new Button { Width = 70, Height = 20, Margin = new Thickness(10) });
         }
 
-        private void BudgetInfos_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        private void InitializeSortType()
         {
-            TotalBalanceInfo.Text = budgetInfos.Sum(b => b.Amount).ToString();
+            var sortTypeStr = ConfigurationManager.AppSettings["BudgetItemsSortType"];
+
+            if (!string.IsNullOrEmpty(sortTypeStr) 
+                && Enum.TryParse<SortType>(sortTypeStr, out var sortType))
+            {
+                _budgetService.SortType = sortType;
+            }
         }
 
         private static IServiceProvider SetupDependencyInjection()
@@ -53,12 +61,18 @@ namespace BudgetApp
             ServiceCollection serviceDescriptors = new();
             serviceDescriptors
                 .AddSingleton<IBudgetRepository, BudgetRepository>()
+                .AddSingleton<IBudgetService, BudgetService>()
                 .AddSingleton(new SqlConnection(
                         ConfigurationManager
                             .ConnectionStrings["BudgetingDb"]
                             .ConnectionString));
 
             return serviceDescriptors.BuildServiceProvider();
+        }
+
+        private void BudgetInfos_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            TotalBalanceInfo.Text = _budgetService.GetTotalPrice().ToString();
         }
 
         private void InitializeGrid()
@@ -77,11 +91,8 @@ namespace BudgetApp
 
         private void InitializeBudgetData()
         {
-            budgetInfos.CollectionChanged += BudgetInfos_CollectionChanged;
-            foreach (var budgetInfo in _budgetRepository.Get())
-            {
-                budgetInfos.Add(budgetInfo);
-            }
+            var budgetInfos = _budgetService.GetBudgetInfos();
+            budgetInfos.CollectionChanged += BudgetInfos_CollectionChanged;            
 
             BudgetGrid.ItemsSource = budgetInfos;
         }
@@ -93,8 +104,7 @@ namespace BudgetApp
                 BudgetDescriptionTextBox.Text);
             try
             {
-                _budgetRepository.Add(budgetInfo);
-                budgetInfos.Add(budgetInfo);
+                _budgetService.AddBudgetInfo(budgetInfo);
             }
             catch
             {
