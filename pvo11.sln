@@ -61,11 +61,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{4F0B1EF8-5C4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetApp", "BudgetApp\BudgetApp.csproj", "{8F57AE05-003F-4202-8962-C45C499F44ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetWpfDapper", "BudgetWpfDapper\BudgetWpfDapper.csproj", "{A27D0570-1E8B-49A5-9DBA-D3DB8718F3E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetWpfDapper", "BudgetWpfDapper\BudgetWpfDapper.csproj", "{A27D0570-1E8B-49A5-9DBA-D3DB8718F3E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperClone", "DapperClone\DapperClone.csproj", "{24212140-2059-46EE-8995-0586B0498D0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperClone", "DapperClone\DapperClone.csproj", "{24212140-2059-46EE-8995-0586B0498D0D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tgClone", "..\tgClone\tgClone.csproj", "{7F00556B-E8BC-4E5D-8E01-2C9BF953D1A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetWpfEf", "BudgetWpfEf\BudgetWpfEf.csproj", "{AE27BEB9-9662-40A1-972C-10CD05FFAE25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,6 +179,10 @@ Global
 		{7F00556B-E8BC-4E5D-8E01-2C9BF953D1A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F00556B-E8BC-4E5D-8E01-2C9BF953D1A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F00556B-E8BC-4E5D-8E01-2C9BF953D1A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE27BEB9-9662-40A1-972C-10CD05FFAE25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE27BEB9-9662-40A1-972C-10CD05FFAE25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE27BEB9-9662-40A1-972C-10CD05FFAE25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE27BEB9-9662-40A1-972C-10CD05FFAE25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -209,6 +215,7 @@ Global
 		{A27D0570-1E8B-49A5-9DBA-D3DB8718F3E8} = {2D0FE870-5588-416C-9D13-48858E8C91D3}
 		{24212140-2059-46EE-8995-0586B0498D0D} = {2D0FE870-5588-416C-9D13-48858E8C91D3}
 		{7F00556B-E8BC-4E5D-8E01-2C9BF953D1A3} = {22011724-E48A-4FEB-B738-DBC6FE3050F8}
+		{AE27BEB9-9662-40A1-972C-10CD05FFAE25} = {2D0FE870-5588-416C-9D13-48858E8C91D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FAD1D98-5044-4B76-9547-1E18479C7200}
