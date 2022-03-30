@@ -31,19 +31,19 @@ namespace BudgetWpfEf
         {
             using var context = new BudgetContext();
 
-            //var budgetAmount = int.Parse(BudgetAmount.Text);
-            //var newItem = new BudgetInfo
-            //{
-            //    Amount = budgetAmount,
-            //    Description = BudgetDescription.Text,
-            //};
+            var budgetAmount = int.Parse(BudgetAmount.Text);
+            var newItem = new BudgetInfo
+            {
+                Amount = budgetAmount,
+                Description = BudgetDescription.Text,
+            };
 
-            //context.BudgetItems.Add(newItem);
+            context.BudgetItems.Add(newItem);
 
-            var planeBudgetInfo = context.BudgetItems
-                .FirstOrDefault(b => b.Description.StartsWith("Самол"));
+            //var planeBudgetInfo = context.BudgetItems
+            //    .FirstOrDefault(b => b.Description.StartsWith("Самолет"));
 
-            planeBudgetInfo.Amount = 20_000;
+            //planeBudgetInfo.Amount = 20_000;
 
             context.SaveChanges();
 
