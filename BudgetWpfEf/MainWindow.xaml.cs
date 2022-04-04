@@ -1,7 +1,10 @@
 ﻿using BudgetWpfEf.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows;
 
 namespace BudgetWpfEf
@@ -40,8 +43,18 @@ namespace BudgetWpfEf
 
             context.BudgetItems.Add(newItem);
 
-            //var planeBudgetInfo = context.BudgetItems
-            //    .FirstOrDefault(b => b.Description.StartsWith("Самолет"));
+            var numbers = new List<int> { 1, 2, 3, 4, };
+            numbers
+                .Where(n => n > 0);
+
+            var planeBudgetInfo = context.BudgetItems
+                .Include(b => b.User)
+                .Where(b => b.Description.StartsWith("Самолет"))
+                .Where(b => b.Id > 2)
+                .OrderBy(b => b.Description)
+                .Select(b => b.Id);
+
+            planeBudgetInfo.First();
 
             //planeBudgetInfo.Amount = 20_000;
 

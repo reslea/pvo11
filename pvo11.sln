@@ -69,9 +69,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tgClone", "..\tgClone\tgClo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetWpfEf", "BudgetWpfEf\BudgetWpfEf.csproj", "{AE27BEB9-9662-40A1-972C-10CD05FFAE25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFClone", "EFClone\EFClone.csproj", "{5AF3B19E-7B74-4225-930D-7EC394B3F442}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFClone", "EFClone\EFClone.csproj", "{5AF3B19E-7B74-4225-930D-7EC394B3F442}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAdapterSample", "DataAdapterSample\DataAdapterSample.csproj", "{D9A5E786-D571-44BC-8C17-B10ADEE3E97F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAdapterSample", "DataAdapterSample\DataAdapterSample.csproj", "{D9A5E786-D571-44BC-8C17-B10ADEE3E97F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Expressions", "Expressions\Expressions.csproj", "{C32C8E06-3489-4E78-8F22-2F5A356F4BAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbRequestExpressions", "DbRequestExpressions\DbRequestExpressions.csproj", "{9FC78017-C43E-4206-B0CC-8FAF9755483B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -195,6 +199,14 @@ Global
 		{D9A5E786-D571-44BC-8C17-B10ADEE3E97F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9A5E786-D571-44BC-8C17-B10ADEE3E97F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9A5E786-D571-44BC-8C17-B10ADEE3E97F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C32C8E06-3489-4E78-8F22-2F5A356F4BAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C32C8E06-3489-4E78-8F22-2F5A356F4BAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C32C8E06-3489-4E78-8F22-2F5A356F4BAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C32C8E06-3489-4E78-8F22-2F5A356F4BAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FC78017-C43E-4206-B0CC-8FAF9755483B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FC78017-C43E-4206-B0CC-8FAF9755483B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FC78017-C43E-4206-B0CC-8FAF9755483B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FC78017-C43E-4206-B0CC-8FAF9755483B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

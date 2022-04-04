@@ -7,10 +7,10 @@ class Program
 {
     public static void Main()
     {
-        var context = typeof(Program).Assembly.GetTypes()
+        var contextType = typeof(Program).Assembly.GetTypes()
             .First(t => t.BaseType == typeof(DbContext));
 
-        var tableDescriptors = context.GetProperties()
+        var tableDescriptors = contextType.GetProperties()
             .Where(p => p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
             .Select(p => new TableDescriptor { Name = p.Name, Type = p.PropertyType.GenericTypeArguments[0] })
             .ToList();
