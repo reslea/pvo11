@@ -1,0 +1,34 @@
+﻿@model RegistrationModel
+
+<h1>Registration</h1>
+
+<div>
+    <form method="post">
+        <div>
+            <label asp-for="Name">Name:</label>
+            <input asp-for="Name" />
+
+            @*<input type="text" name="Name" id="Name" .... />*@
+        </div>
+        <div>
+            <label asp-for="Age">
+                Age:
+                <input asp-for="Age" />
+            </label>
+        </div>
+        <div>
+            <label asp-for="Email">Email:</label>
+            <input asp-for="Email" />
+        </div>
+        <div>
+            <label asp-for="Password">Password:</label>
+            <input asp-for="Password" />
+        </div>
+        <div>
+            <label asp-for="PasswordConfirmation">Confirm password:</label>
+            <input asp-for="PasswordConfirmation" />
+        </div>
+        <button type="reset">Reset</button>
+        <button type="submit">Register</button>
+    </form>
+</div>
