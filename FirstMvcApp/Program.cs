@@ -1,5 +1,6 @@
-using FirstMvcApp.Controllers;
 using FirstMvcApp.Database;
+using FirstMvcApp.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<UserDbContext>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "SUPERCOOKIE";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        options.SlidingExpiration = true;
+        options.AccessDeniedPath = "/Home/Error";
+    });
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -19,8 +30,13 @@ if (!app.Environment.IsDevelopment())
 
 app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseStaticFiles();
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Auth}/{action=Register}");
+    pattern: "{controller=Auth}/{action=Login}");
 
 app.Run();

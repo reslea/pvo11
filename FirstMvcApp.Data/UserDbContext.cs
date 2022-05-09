@@ -1,12 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FirstMvcApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirstMvcApp.Database;
 
 public class UserDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
-
-    public DbSet<Order> Orders { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
