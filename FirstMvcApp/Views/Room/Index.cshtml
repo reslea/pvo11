@@ -1,0 +1,38 @@
+﻿@using FirstMvcApp.Data
+@using FirstMvcApp.Helpers
+@model RoomListModel
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">MaxVisitorsCount</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach(Room room in Model.Rooms)
+        {
+        <tr>
+            <th scope="row">@(room.Id)</th>
+            <td>@(room.Name)</td>
+            <td>@(room.MaxVisitorsCount)</td>
+            <td>                
+                @if (Model.IsAuthenticated)
+                {
+                    <a
+                    asp-controller=Booking
+                    asp-action=Book 
+                    asp-route-roomid=@(room.Id)
+                    >Book</a>
+                }
+                else
+                {
+                    <span>Please Login</span>
+                }
+            </td>
+        </tr>
+        }
+  </tbody>
+</table>

@@ -26,7 +26,7 @@ namespace FirstMvcApp.Services
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> Login(LoginModel model, string? returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -39,6 +39,11 @@ namespace FirstMvcApp.Services
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     claimsPrincipal);
+
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
 
                 return RedirectToAction("Index", "Home");
             }

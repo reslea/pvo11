@@ -1,0 +1,21 @@
+﻿@model AddBookingModel;
+
+<form asp-action="Book" method="post">
+    <input asp-for=RoomId value=@(Model.RoomId) type="hidden" />
+  <div class="form-group">
+    <label asp-for="VisitorsCount">Visitors count: </label>
+    <input asp-for="VisitorsCount" class="form-control" placeholder="Enter count of visitors">
+    <span asp-validation-for="VisitorsCount"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="DateFrom">Booking start date: </label>
+    <input asp-for="DateFrom" class="form-control" placeholder="Enter booking start date">
+    <span asp-validation-for="DateFrom"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="DateTo">Booking end date: </label>
+    <input asp-for="DateTo" class="form-control" placeholder="Enter booking end date: ">
+    <span asp-validation-for="DateTo"></span>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

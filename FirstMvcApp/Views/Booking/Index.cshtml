@@ -1,0 +1,28 @@
+﻿@using FirstMvcApp.Data
+@model List<Booking>
+
+
+<h3>All bookings for @(Model[0].User.Name)</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Room</th>
+      <th scope="col">Count of visitors</th>
+      <th>Booking start</th>
+      <th>Booking end</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach(Booking booking in Model)
+        {
+        <tr>
+            <th scope="row">@(booking.Id)</th>
+            <td>@(booking.Room.Name)</td>
+            <td>@(booking.VisitorsCount)</td>
+            <td>@(booking.DateFrom)</td>
+            <td>@(booking.DateTo)</td>
+        </tr>
+        }
+  </tbody>
+</table>
