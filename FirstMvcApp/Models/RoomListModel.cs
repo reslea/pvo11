@@ -8,5 +8,7 @@ namespace FirstMvcApp.Models
 
         public bool IsAuthenticated { get; set; }
 
+        public string UserLang { get; set; }
+
     }
 }

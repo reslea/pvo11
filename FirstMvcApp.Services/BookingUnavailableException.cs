@@ -3,7 +3,7 @@
 namespace FirstMvcApp.Services
 {
     [Serializable]
-    public class BookingUnavailableException : Exception
+    public class BookingUnavailableException : DomainException
     {
         public BookingUnavailableException()
         {

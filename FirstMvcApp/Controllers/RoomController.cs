@@ -26,17 +26,18 @@ namespace FirstMvcApp.Models
             return View(new RoomListModel() 
             {
                 Rooms = rooms,
-                IsAuthenticated = isAuthenticated 
-            });
+                IsAuthenticated = isAuthenticated,
+                UserLang = (string)HttpContext.Items["USER_PRIMARY_LANG"]!
+    });
         }
 
-        [HttpGet, Authorize]
+        [HttpGet, RequireRole("Admin")]
         public IActionResult Add()
         {
             return View();
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, RequireRole("Admin")]
         public IActionResult Add(AddRoomModel model)
         {
             if (!ModelState.IsValid)

@@ -11,7 +11,7 @@ namespace FirstMvcApp.Helpers
             this.contextAccessor = contextAccessor;
         }
 
-        public bool IsAuthenticated => contextAccessor.HttpContext!.User.Identity!.IsAuthenticated;
+        public bool IsAuthenticated => contextAccessor.HttpContext?.User.Identity?.IsAuthenticated ?? false;
 
         public int? UserId =>
             IsAuthenticated
@@ -21,6 +21,11 @@ namespace FirstMvcApp.Helpers
         public string? UserName =>
             IsAuthenticated
             ? contextAccessor.HttpContext!.User.Claims.First(c => c.Type == ClaimTypes.Name).Value
+            : null;
+
+        public string? Role =>
+            IsAuthenticated
+            ? contextAccessor.HttpContext!.User.Claims.First(c => c.Type == ClaimTypes.Role).Value
             : null;
     }
 }

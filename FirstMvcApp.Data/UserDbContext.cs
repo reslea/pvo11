@@ -6,8 +6,12 @@ namespace FirstMvcApp.Database;
 public class UserDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
+
     public DbSet<Room> Rooms { get; set; }
+
     public DbSet<Booking> Bookings { get; set; }
+
+    public DbSet<Role> Roles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -26,10 +30,18 @@ public class UserDbContext : DbContext
             new() { Id = 3, Name = "for 1 people luxury", MaxVisitorsCount = 1 }
         });
 
+        modelBuilder.Entity<Role>()
+            .HasData(new List<Role>
+            {
+                new() { Id = 1, Name = "User" },
+                new() { Id = 2, Name = "Admin" },
+            });
+
         modelBuilder.Entity<User>()
             .HasData(new List<User>
             {
-                new() { Id = 1, Age = 20, Name = "Alex", Password = "qwe", Email = "qwe@gmail.com", Created = DateTime.Now }
+                new() { Id = 1, Age = 20, Name = "Admin", RoleId = 2, Password = "admin", Email = "admin@gmail.com", Created = DateTime.Now },
+                new() { Id = 2, Age = 20, Name = "User", RoleId = 1, Password = "user", Email = "user@gmail.com", Created = DateTime.Now }
             });
 
         base.OnModelCreating(modelBuilder);

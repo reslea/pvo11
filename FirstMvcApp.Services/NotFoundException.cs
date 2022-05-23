@@ -3,7 +3,7 @@
 namespace FirstMvcApp.Services;
 
 [Serializable]
-public class NotFoundException : Exception
+public class NotFoundException : DomainException
 {
     public NotFoundException()
     {

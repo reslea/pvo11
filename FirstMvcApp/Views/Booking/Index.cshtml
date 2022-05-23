@@ -1,28 +1,34 @@
 ﻿@using FirstMvcApp.Data
 @model List<Booking>
 
-
-<h3>All bookings for @(Model[0].User.Name)</h3>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Room</th>
-      <th scope="col">Count of visitors</th>
-      <th>Booking start</th>
-      <th>Booking end</th>
-    </tr>
-  </thead>
-  <tbody>
-      @foreach(Booking booking in Model)
-        {
+@if(Model.Count > 0)
+{
+    <h3>All bookings for @(Model[0].User.Name)</h3>
+    <table class="table">
+      <thead>
         <tr>
-            <th scope="row">@(booking.Id)</th>
-            <td>@(booking.Room.Name)</td>
-            <td>@(booking.VisitorsCount)</td>
-            <td>@(booking.DateFrom)</td>
-            <td>@(booking.DateTo)</td>
+          <th scope="col">#</th>
+          <th scope="col">Room</th>
+          <th scope="col">Count of visitors</th>
+          <th>Booking start</th>
+          <th>Booking end</th>
         </tr>
-        }
-  </tbody>
-</table>
+      </thead>
+      <tbody>
+          @foreach(Booking booking in Model)
+            {
+            <tr>
+                <th scope="row">@(booking.Id)</th>
+                <td>@(booking.Room.Name)</td>
+                <td>@(booking.VisitorsCount)</td>
+                <td>@(booking.DateFrom)</td>
+                <td>@(booking.DateTo)</td>
+            </tr>
+            }
+      </tbody>
+    </table>
+} else
+{
+    <h1>There are no bookings</h1>
+    <h3> <a asp-controller="room" asp-action="index">Book a room here</a> </h3>
+}

@@ -60,11 +60,11 @@ namespace FirstMvcApp.Models
                 ModelState.AddModelError(nameof(AddBookingModel.DateFrom), ex.Message);
                 return View(model);
             }
-            catch (BookingUnavailableException ex)
-            {
-                ModelState.AddModelError(nameof(AddBookingModel.DateFrom), ex.Message);
-                return View(model);
-            }
+            //catch (BookingUnavailableException ex)
+            //{
+            //    ModelState.AddModelError(nameof(AddBookingModel.DateFrom), ex.Message);
+            //    return View(model);
+            //}
         }
     }
 }

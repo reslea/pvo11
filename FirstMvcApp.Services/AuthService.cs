@@ -1,5 +1,6 @@
 ﻿using FirstMvcApp.Database;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 
@@ -19,8 +20,9 @@ namespace FirstMvcApp.Services
 
         public ClaimsPrincipal Login(string email, string password)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Email == email
-                && u.Password == password);
+            var user = _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefault(u => u.Email == email && u.Password == password);
 
             if (user == null)
             {
@@ -33,6 +35,7 @@ namespace FirstMvcApp.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Role, user.Role.Name),
             };
 
             ClaimsIdentity identity = new(claims, CookieAuthenticationDefaults.AuthenticationScheme);

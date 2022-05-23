@@ -24,6 +24,7 @@ namespace FirstMvcApp.Services
             var userId = user.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
             _logger.LogInformation($"userId: {userId} username: {username}");
+
             return View();
         }
 
