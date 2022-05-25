@@ -14,8 +14,12 @@
             var existingLang = context.Session.GetString("lang");
             if (string.IsNullOrEmpty(existingLang))
             {
-                var lang = context.Request.Headers.AcceptLanguage[0].Substring(0, 2);
-                context.Session.SetString("lang", lang);
+                var acceptLang = context.Request.Headers.AcceptLanguage;
+                if (acceptLang.Any())
+                {
+                    var lang = acceptLang[0].Substring(0, 2);
+                    context.Session.SetString("lang", lang);
+                }
             }
             await _next(context);
         }

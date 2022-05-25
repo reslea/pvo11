@@ -23,7 +23,7 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddSingleton(provider =>
 {
-    var config = builder.Services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+    var config = provider.GetRequiredService<IConfiguration>();
     var pubicKey = config["Jwt:Public"];
 
     RSA rsa = RSA.Create();

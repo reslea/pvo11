@@ -26,10 +26,12 @@ namespace SampleApi.Controllers
         {
             if (model.Login == "admin" && model.Password == "admin")
             {
-                var privateKeyBytes = Encoding.UTF8.GetBytes(_configuration["Jwt:Private"]);
+                var rsa = RSA.Create();
+                rsa.ImportRSAPrivateKey(Convert.FromBase64String(_configuration["Jwt:Private"]), out _);
+
                 var signingCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(privateKeyBytes),
-                    SecurityAlgorithms.HmacSha256);
+                    new RsaSecurityKey(rsa),
+                    SecurityAlgorithms.RsaSha512);
 
                 var notBefore = DateTime.Now;
 
