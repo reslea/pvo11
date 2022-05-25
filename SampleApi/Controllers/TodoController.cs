@@ -33,13 +33,15 @@ namespace SampleApi.Controllers
         [ProducesResponseType(typeof(TodoModel), 200), ProducesResponseType(404)]
         public IActionResult GetOne(int todoId)
         {
+            var lang = HttpContext.Session.GetString("lang");
+
             //return TodoModels.FirstOrDefault(x => x.Id == todoId) switch
             //{
             //    TodoModel todo => Ok(todo),
             //    null => NotFound(),
             //};
 
-            var todo = TodoModels.FirstOrDefault(x => x.Id == todoId);
+            TodoModel? todo = TodoModels.FirstOrDefault(x => x.Id == todoId);
             return todo == null ? NotFound() : Ok(todo);
         }
 
