@@ -21,22 +21,33 @@ builder.Services.AddSession(options =>
     options.Cookie.Name = "Session";
 });
 
+builder.Services.AddSingleton(provider =>
+{
+    var config = builder.Services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+    var pubicKey = config["Jwt:Public"];
+
+    RSA rsa = RSA.Create();
+    var publicKeyBytes = Convert.FromBase64String(pubicKey);
+    rsa.ImportRSAPublicKey(publicKeyBytes, out var _);
+
+    return new RsaSecurityKey(rsa);
+});
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        var config = builder.Services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-        var pubicKey = config["Jwt:Public"];
-
-        RSA rsa = RSA.Create();
-        var publicKeyBytes = Convert.FromBase64String(pubicKey);
-        rsa.ImportRSAPublicKey(publicKeyBytes, out var _);
-
-        var rsaKey = new RsaSecurityKey(rsa);
-
+        var rsaPublicKey = builder.Services.BuildServiceProvider()
+        .GetRequiredService<RsaSecurityKey>();
+#if DEBUG
         options.IncludeErrorDetails = true;
-        options.RequireHttpsMetadata = false;
+#endif
         options.TokenValidationParameters = new()
         {
+            // установка ключа безопасности
+            IssuerSigningKey = rsaPublicKey,
+            // валидация ключа безопасности
+            ValidateIssuerSigningKey = true,
+
             // укзывает, будет ли валидироваться издатель при валидации токена
             ValidateIssuer = false,
             // будет ли валидироваться потребитель токена
@@ -44,17 +55,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             // будет ли валидироваться время существования
             ValidateLifetime = true,
 
-            // установка ключа безопасности
-            IssuerSigningKey = rsaKey,
-            // валидация ключа безопасности
-            ValidateIssuerSigningKey = true,
             // будут валидны только подписанные токены
             RequireSignedTokens = true,
             // будут валидны только токены, у которых есть дата устаревания
             RequireExpirationTime = true,
         };
     });
-
 
 var app = builder.Build();
 
