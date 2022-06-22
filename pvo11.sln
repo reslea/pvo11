@@ -101,7 +101,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleMinimalApi", "SampleM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Security", "Security", "{581AD18C-4C7A-4C95-B849-43376A12142A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsymmetricTokenGenerator", "AsymmetricTokenGenerator\AsymmetricTokenGenerator.csproj", "{FA2AE1A2-D953-4EAB-B96B-040306726B75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsymmetricTokenGenerator", "AsymmetricTokenGenerator\AsymmetricTokenGenerator.csproj", "{FA2AE1A2-D953-4EAB-B96B-040306726B75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booking.Web", "Booking.Web\Booking.Web.csproj", "{FCFF5D1C-9C70-44FA-BA5D-A778D29C499F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -269,6 +271,10 @@ Global
 		{FA2AE1A2-D953-4EAB-B96B-040306726B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA2AE1A2-D953-4EAB-B96B-040306726B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA2AE1A2-D953-4EAB-B96B-040306726B75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCFF5D1C-9C70-44FA-BA5D-A778D29C499F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCFF5D1C-9C70-44FA-BA5D-A778D29C499F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCFF5D1C-9C70-44FA-BA5D-A778D29C499F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCFF5D1C-9C70-44FA-BA5D-A778D29C499F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -313,6 +319,7 @@ Global
 		{F2ED20AA-0CBF-42E6-8508-16920A69939F} = {11F9730D-4B52-49B1-BB83-1AC5A9109FB4}
 		{E0F6C2C7-0313-4C23-9167-AF568C790ADC} = {11F9730D-4B52-49B1-BB83-1AC5A9109FB4}
 		{FA2AE1A2-D953-4EAB-B96B-040306726B75} = {581AD18C-4C7A-4C95-B849-43376A12142A}
+		{FCFF5D1C-9C70-44FA-BA5D-A778D29C499F} = {11F9730D-4B52-49B1-BB83-1AC5A9109FB4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FAD1D98-5044-4B76-9547-1E18479C7200}
