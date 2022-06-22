@@ -7,10 +7,16 @@ namespace Booking.Data
     {
         public DbSet<Room> Rooms { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        public BookingDbConext(DbContextOptions<BookingDbConext> options)
+            : base(options)
         {
-            var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Booking;Integrated Security=True;";
-            options.UseSqlServer(connectionString);
+
         }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder options)
+        //{
+        //    var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Booking;Integrated Security=True;";
+        //    options.UseSqlServer(connectionString);
+        //}
     }
 }

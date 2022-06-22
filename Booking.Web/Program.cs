@@ -1,7 +1,10 @@
 using Booking.Data;
 using Booking.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var config = builder.Configuration;
 
 // Add services to the container.
 
@@ -16,7 +19,11 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IRoomService, RoomService>();
-builder.Services.AddScoped<BookingDbConext>();
+builder.Services.AddDbContext<BookingDbConext>(options => 
+{
+    var connectionString = config.GetConnectionString("BookingDb");
+    options.UseSqlServer(connectionString);
+});
 
 var app = builder.Build();
 
