@@ -1,3 +1,6 @@
+using Booking.Data;
+using Booking.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +14,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("local react", policyOptions => { policyOptions.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader(); });
 });
+
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<BookingDbConext>();
 
 var app = builder.Build();
 
@@ -28,5 +34,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<BookingDbConext>();
+    context.Database.EnsureCreated();
+}
 
 app.Run();
