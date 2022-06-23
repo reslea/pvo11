@@ -3,11 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Booking.Data
 {
-    public class BookingDbConext : DbContext
+    public class BookingDbContext : DbContext
     {
         public DbSet<Room> Rooms { get; set; }
 
-        public BookingDbConext(DbContextOptions<BookingDbConext> options)
+        public DbSet<RoomBooking> Bookings { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+        public BookingDbContext(DbContextOptions<BookingDbContext> options)
             : base(options)
         {
 

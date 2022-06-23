@@ -5,9 +5,9 @@ namespace Booking.Services
 {
     public class RoomService : IRoomService
     {
-        private readonly BookingDbConext context;
+        private readonly BookingDbContext context;
 
-        public RoomService(BookingDbConext context)
+        public RoomService(BookingDbContext context)
         {
             this.context = context;
         }
