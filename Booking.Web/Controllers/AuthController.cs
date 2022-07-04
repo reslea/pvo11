@@ -1,6 +1,7 @@
 ﻿using Booking.Data.Entities;
 using Booking.Services;
 using Booking.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -20,6 +21,13 @@ namespace Booking.Web.Controllers
         [HttpGet]
         public IActionResult ValidateToken()
         {
+            var isAuth = HttpContext.User.Identity.IsAuthenticated;
+
+            if (isAuth)
+            {
+                return Unauthorized();
+            }
+
             var username = HttpContext.User.Identity.Name;
             return Ok(username);
         }

@@ -8,11 +8,11 @@ namespace Booking.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingsController : ControllerBase
+    public class BookingController : ControllerBase
     {
         private readonly IBookingService _service;
 
-        public BookingsController(IBookingService service)
+        public BookingController(IBookingService service)
         {
             _service = service;
         }

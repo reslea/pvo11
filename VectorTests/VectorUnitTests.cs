@@ -11,6 +11,8 @@ namespace VectorTests
         {
             var vector = new Vector<int> { 1, 2, 3, 4 };
 
+            Assert.True(vector.Count == 4);
+
             vector.Clear();
 
             Assert.True(vector.Count == 0);

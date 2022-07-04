@@ -1,16 +1,17 @@
 ﻿using Booking.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Booking.Web.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class RoomsController : ControllerBase
+    [ApiController, Authorize]
+    public class RoomController : ControllerBase
     {
         private readonly IRoomService roomService;
 
-        public RoomsController(IRoomService roomService)
+        public RoomController(IRoomService roomService)
         {
             this.roomService = roomService;
         }
