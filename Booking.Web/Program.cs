@@ -1,8 +1,10 @@
 ﻿using Booking.Data;
 using Booking.Services;
+using Booking.Web;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using RabbitMQ.Client;
 using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +23,12 @@ builder.Services.AddCors(options =>
     options.AddPolicy("local react", policyOptions => { policyOptions.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader(); });
 });
 
+builder.Services.AddSingleton<ConnectionFactory>(options =>
+{
+    return new ConnectionFactory { HostName = config.GetConnectionString("RabbitHostName") };
+});
+builder.Services.AddHostedService<ClientEventProcessor>();
+
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -31,6 +39,7 @@ builder.Services.AddDbContext<BookingDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
+
 builder.Services.AddSingleton<RsaSecurityKey>(provider =>
 {
     RSA rsa = RSA.Create();
@@ -39,7 +48,6 @@ builder.Services.AddSingleton<RsaSecurityKey>(provider =>
 
     return new RsaSecurityKey(rsa);
 });
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {

@@ -10,5 +10,7 @@ namespace Booking.Services
     public interface IBookingService
     {
         void CreateBooking(RoomBooking booking);
+
+        void AddBookingDetails(BookingDetails details);
     }
 }
