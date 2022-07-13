@@ -16,7 +16,7 @@ while (true)
     {
         OrderId = 15,
         PlaymentStatus = "Success",
-        Date= DateTime.Now,DateTime.Now
+        Date = DateTime.Now,
     };
     SendMessage(paymentMessage);
     await Task.Delay(TimeSpan.FromSeconds(1));

@@ -1,5 +1,6 @@
 ﻿using Booking.Data;
 using Booking.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Text;
@@ -35,22 +36,22 @@ namespace Booking.Services
             _channel.BasicPublish("", _queueName, null, bookingJsonBytes);
         }
 
-        public void AddBookingDetails(BookingDetails details)
+        public async Task AddBookingDetailsAsync(BookingDetails details)
         {
-            var detailsFromDb = context.BookingDetails
-                .FirstOrDefault(d => d.Id == details.Id);
+            var detailsFromDb = await context.BookingDetails
+                .FirstOrDefaultAsync(d => d.Id == details.Id);
 
             bool isArrival = detailsFromDb == null;
 
             if (isArrival)
             {
                 context.BookingDetails.Add(details);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
             else
             {
                 detailsFromDb.LeaveDate = DateTime.Now;
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
 

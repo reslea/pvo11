@@ -11,6 +11,6 @@ namespace Booking.Services
     {
         void CreateBooking(RoomBooking booking);
 
-        void AddBookingDetails(BookingDetails details);
+        Task AddBookingDetailsAsync(BookingDetails details);
     }
 }

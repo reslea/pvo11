@@ -1,5 +1,6 @@
 ﻿using Booking.Data;
 using Booking.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,13 +20,14 @@ namespace Booking.Services
             _context = context;
         }
 
-        public string Login(string login, string password)
+        public async Task<string> LoginAsync(string login, string password)
         {
-            var user = _context.Users.First(u => u.Name == login && u.Password == password);
+            var user = await _context.Users.FirstAsync(u => u.Name == login && u.Password == password);
             var claims = GetUserClaims(user);
 
             return GenerateToken(claims);
         }
+
         public string Register(User user)
         {
             _context.Users.Add(user);

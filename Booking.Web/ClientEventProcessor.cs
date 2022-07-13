@@ -31,11 +31,11 @@ namespace Booking.Web
 
             _channel.QueueDeclare(_queueName, exclusive: false);
 
-            var consumer = new EventingBasicConsumer(_channel);
+            var consumer = new AsyncEventingBasicConsumer(_channel);
 
             consumer.Received += Consumer_Received;
 
-            void Consumer_Received(object? sender, BasicDeliverEventArgs e)
+            async Task Consumer_Received(object? sender, BasicDeliverEventArgs e)
             {
                 var messageJson = Encoding.UTF8.GetString(e.Body.ToArray());
 
@@ -45,7 +45,7 @@ namespace Booking.Web
 
                 var bookingService = scope.ServiceProvider.GetRequiredService<IBookingService>();
 
-                bookingService.AddBookingDetails(bookingDetails);
+                await bookingService.AddBookingDetailsAsync(bookingDetails);
             }
 
             _channel.BasicConsume(_queueName, true, consumer);

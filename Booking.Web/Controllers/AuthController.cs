@@ -33,7 +33,7 @@ namespace Booking.Web.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginModel model)
+        public async Task<IActionResult> Login(LoginModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -41,7 +41,7 @@ namespace Booking.Web.Controllers
             }
             try
             {
-                var token = service.Login(model.Login, model.Password);
+                var token = await service.LoginAsync(model.Login, model.Password);
 
                 return Ok(new { token });
             }
