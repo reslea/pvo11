@@ -22,10 +22,7 @@ namespace Booking.Services
 
         public async Task<string> LoginAsync(string login, string password)
         {
-            var user = await _context.Users.FirstAsync(u => u.Name == login && u.Password == password);
-            var claims = GetUserClaims(user);
-
-            return GenerateToken(claims);
+            throw new NotImplementedException();
         }
 
         public string Register(User user)

@@ -121,7 +121,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComsumerApp", "ComsumerApp\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking.EmailListener", "Booking.EmailListener\Booking.EmailListener.csproj", "{DB6B251E-B22F-44E7-AC31-24E3D22D271F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booking.ClientApp", "Booking.ClientApp\Booking.ClientApp.csproj", "{61380178-8501-402B-A081-B86E8B86FE08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking.ClientApp", "Booking.ClientApp\Booking.ClientApp.csproj", "{61380178-8501-402B-A081-B86E8B86FE08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booking.Handlers", "Booking.Handlers\Booking.Handlers.csproj", "{5222FE4E-CAA2-4EE6-BD89-DFD40F4C7210}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -321,6 +323,10 @@ Global
 		{61380178-8501-402B-A081-B86E8B86FE08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61380178-8501-402B-A081-B86E8B86FE08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61380178-8501-402B-A081-B86E8B86FE08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5222FE4E-CAA2-4EE6-BD89-DFD40F4C7210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5222FE4E-CAA2-4EE6-BD89-DFD40F4C7210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5222FE4E-CAA2-4EE6-BD89-DFD40F4C7210}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5222FE4E-CAA2-4EE6-BD89-DFD40F4C7210}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -374,6 +380,7 @@ Global
 		{38B905C5-BE9C-41D3-80B3-03BC4BFF6BB4} = {99824702-250F-431A-9732-790EE2B5DCF2}
 		{DB6B251E-B22F-44E7-AC31-24E3D22D271F} = {8E117197-49B1-464C-BA1A-9E092AB83879}
 		{61380178-8501-402B-A081-B86E8B86FE08} = {8E117197-49B1-464C-BA1A-9E092AB83879}
+		{5222FE4E-CAA2-4EE6-BD89-DFD40F4C7210} = {8E117197-49B1-464C-BA1A-9E092AB83879}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FAD1D98-5044-4B76-9547-1E18479C7200}

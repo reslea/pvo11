@@ -1,6 +1,8 @@
 ﻿using Booking.Data.Entities;
+using Booking.Handlers.Auth;
 using Booking.Services;
 using Booking.Web.Models;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -11,24 +13,23 @@ namespace Booking.Web.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthService service;
+        private readonly IMediator mediator;
 
-        public AuthController(IAuthService service)
+        public AuthController(IMediator mediator)
         {
-            this.service = service;
+            this.mediator = mediator;
         }
 
         [HttpGet]
-        public IActionResult ValidateToken()
+        public async Task<IActionResult> ValidateTokenAsync()
         {
-            var isAuth = HttpContext.User.Identity.IsAuthenticated;
+            var username = await mediator.Send(new ValidateTokenDto());
 
-            if (isAuth)
+            if (username == null)
             {
                 return Unauthorized();
             }
 
-            var username = HttpContext.User.Identity.Name;
             return Ok(username);
         }
 
@@ -41,7 +42,7 @@ namespace Booking.Web.Controllers
             }
             try
             {
-                var token = await service.LoginAsync(model.Login, model.Password);
+                var token = await mediator.Send(new LoginDto { Login = model.Login, Password = model.Password });
 
                 return Ok(new { token });
             }
@@ -54,21 +55,9 @@ namespace Booking.Web.Controllers
         [HttpPost("register")]
         public IActionResult Register(RegistrationModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             try
             {
-                var user = new User
-                {
-                    Name = model.Name,
-                    Email = model.Email,
-                    Password = model.Password,
-                    Age = model.Age,
-                    Created = DateTime.Now,
-                };
-                var token = service.Register(user);
+                var token = mediator.Send(model);
 
                 return Ok(token);
             }
