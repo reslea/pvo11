@@ -31,7 +31,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(typeof(PingHandler).Assembly);
 
-builder.Services.AddValidatorsFromAssemblyContaining<RegistrationModel>();
+builder.Services.AddValidatorsFromAssemblyContaining<RegistrationDto>();
 
 builder.Services.AddCors(options =>
 {
@@ -124,11 +124,6 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<BookingDbContext>();
     context.Database.EnsureCreated();
-
-    if (app.Environment.EnvironmentName != "Test")
-    {
-        context.Database.Migrate();
-    }
 }
 
 app.Run();

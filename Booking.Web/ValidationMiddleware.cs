@@ -19,25 +19,31 @@ namespace Booking.Web
             {
                 await _next(context);
             }
-            catch (ValidationException ve)
+            catch (ValidationException validationException)
             {
-                HandleValidation(ve, context);
+                HandleValidation(validationException, context);
                 return;
             }
-            catch (AggregateException a) when (a.InnerException is ValidationException ve)
+            catch (AggregateException a) 
+                when (a.InnerException is ValidationException validationException)
             {
-                HandleValidation(ve, context);
+                HandleValidation(validationException, context);
                 return;
             }
         }
 
-        private void HandleValidation(ValidationException ve, HttpContext context)
+        private void HandleValidation(ValidationException validationException, HttpContext context)
         {
-
             context.Response.StatusCode = 400;
 
-            var errorsJson = JsonConvert.SerializeObject(ve.Errors
-                .Select(err => new { err.PropertyName, err.ErrorMessage }));
+            var errorsJson = JsonConvert.SerializeObject(
+                validationException.Errors
+                    .Select(err => new 
+                    { 
+                        err.PropertyName, 
+                        err.ErrorMessage 
+                    }));
+            
             var responseBytes = Encoding.UTF8.GetBytes(errorsJson);
 
             context.Response.BodyWriter.WriteAsync(responseBytes);

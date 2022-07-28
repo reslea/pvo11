@@ -53,7 +53,7 @@ namespace Booking.Web.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register(RegistrationModel model)
+        public IActionResult Register(RegistrationDto model)
         {
             try
             {

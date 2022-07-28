@@ -16,8 +16,10 @@ namespace Booking.Data.Entities
 
         public string Email { get; set; }
 
-        public string Password { get; set; }
+        public string HashedPassword { get; set; }
 
         public DateTime Created { get; set; }
+
+        public byte[] Salt { get; set; }
     }
 }

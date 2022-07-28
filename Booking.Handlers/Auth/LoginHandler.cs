@@ -31,7 +31,8 @@ public class LoginHandler : IRequestHandler<LoginDto, string>
 
     public async Task<string> Handle(LoginDto request, CancellationToken cancellationToken)
     {
-        var user = await _context.Users.FirstAsync(u => u.Name == request.Login && u.Password == request.Password);
+        var hashedPassword = request.Password.GetHashCode().ToString();
+        var user = await _context.Users.FirstAsync(u => u.Name == request.Login && u.HashedPassword == hashedPassword);
         
         var claims = new List<Claim>()
         {
