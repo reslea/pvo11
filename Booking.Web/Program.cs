@@ -3,6 +3,7 @@ using Booking.Handlers;
 using Booking.Handlers.Auth;
 using Booking.Handlers.Utilities;
 using Booking.Services;
+using Booking.Services.Hubs;
 using Booking.Web;
 using FluentValidation;
 using MediatR;
@@ -31,12 +32,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(typeof(PingHandler).Assembly);
 
+builder.Services.AddSignalR();
+
 builder.Services.AddValidatorsFromAssemblyContaining<RegistrationDto>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("local react", policyOptions => { policyOptions.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader(); });
-});
+builder.Services.AddCors(opts => opts.AddPolicy("local react", policy => policy
+        .WithOrigins("http://localhost:3000")
+        .AllowAnyMethod()
+        .AllowCredentials()
+        .AllowAnyHeader()));
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
@@ -111,6 +115,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<ValidationMiddleware>();
 
+app.MapHub<BookingHub>("hubs/booking");
+
 app.UseCors("local react");
 
 app.UseHttpsRedirection();
@@ -124,6 +130,7 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<BookingDbContext>();
     context.Database.EnsureCreated();
+    context.Database.Migrate();
 }
 
 app.Run();

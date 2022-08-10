@@ -1,5 +1,7 @@
 ﻿using Booking.Data.Entities;
 using Booking.Services;
+using Booking.Services.Hubs;
+using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -44,6 +46,8 @@ namespace Booking.Web
                 using var scope = serviceProvider.CreateScope();
 
                 var bookingService = scope.ServiceProvider.GetRequiredService<IBookingService>();
+
+                //var bookingContext = scope.ServiceProvider.GetRequiredService<IHubContext<BookingHub, IBookingClient>>();
 
                 await bookingService.AddBookingDetailsAsync(bookingDetails);
             }

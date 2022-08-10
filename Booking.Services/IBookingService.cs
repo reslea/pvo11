@@ -12,5 +12,6 @@ namespace Booking.Services
         void CreateBooking(RoomBooking booking);
 
         Task AddBookingDetailsAsync(BookingDetails details);
+        Task<List<RoomBooking>> GetBookings(DateTime? date);
     }
 }

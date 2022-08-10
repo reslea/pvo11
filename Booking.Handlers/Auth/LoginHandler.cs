@@ -3,6 +3,7 @@ using Booking.Data.Entities;
 using Booking.Handlers.Utilities;
 using Booking.Services;
 using MediatR;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -31,9 +32,22 @@ public class LoginHandler : IRequestHandler<LoginDto, string>
 
     public async Task<string> Handle(LoginDto request, CancellationToken cancellationToken)
     {
-        var hashedPassword = request.Password.GetHashCode().ToString();
-        var user = await _context.Users.FirstAsync(u => u.Name == request.Login && u.HashedPassword == hashedPassword);
-        
+        var user = await _context.Users.FirstAsync(u => u.Name == request.Login);
+
+        var hash = KeyDerivation.Pbkdf2(
+            request.Password,
+            user.Salt,
+            KeyDerivationPrf.HMACSHA512,
+            100_000,
+            1024);
+
+        var hashedPassword = Convert.ToBase64String(hash);
+
+        if (hashedPassword != user.HashedPassword)
+        {
+            throw new ArgumentException("invalid password");
+        }
+
         var claims = new List<Claim>()
         {
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),

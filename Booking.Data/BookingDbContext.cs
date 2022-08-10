@@ -7,7 +7,7 @@ namespace Booking.Data
     {
         public DbSet<Room> Rooms { get; set; }
 
-        public DbSet<RoomBooking> Bookings { get; set; }
+        public DbSet<RoomBooking> RoomBookings { get; set; }
 
         public DbSet<User> Users { get; set; }
 

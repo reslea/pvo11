@@ -32,5 +32,15 @@ namespace Booking.Web.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            //var currentDate = DateOnly.FromDateTime(DateTime.Now);
+
+            var bookings = await _service.GetBookings(DateTime.Now);
+
+            return Ok(bookings);
+        }
     }
 }
